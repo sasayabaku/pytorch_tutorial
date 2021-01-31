@@ -79,7 +79,7 @@ class Discriminator(nn.Module):
 def argparser():
     parser = argparse.ArgumentParser(description='DCGAN Training Script')
 
-    parser.add_argument('--dataroot', type=str, default='/code/input/celeba-dataset/img_align_celeba', help="dir path of dataset")
+    parser.add_argument('--dataroot', type=str, default='./dataset/celeba-dataset/img_align_celeba', help="dir path of dataset")
     parser.add_argument('--output_dir', type=str, default='./output', help="output directory")
 
     parser.add_argument('--workers', type=int, default=4, help="Number of DataLoaders workers")
