@@ -10,6 +10,11 @@ https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html
 
 ## Demo
 
+### Run Demo Web App | Streamlit
+```bash
+streamlit run webapp.py
+```
+
 ### Prepare Dataset
 1.  [This Page or kaggle API](https://www.kaggle.com/jessicali9530/celeba-dataset) を使って、データセットのダウンロード
 1. `01_face_generator/dataset`を作成し、ダウンロードしたデータを解凍
