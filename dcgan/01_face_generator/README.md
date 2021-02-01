@@ -8,24 +8,18 @@ https://www.kaggle.com/jessicali9530/celeba-dataset
 **Reference**
 https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html
 
-## Demo
-
-### Run Demo Web App | Streamlit
-```bash
-streamlit run webapp.py
-```
 
 ### Prepare Dataset
 1.  [This Page or kaggle API](https://www.kaggle.com/jessicali9530/celeba-dataset) を使って、データセットのダウンロード
 1. `01_face_generator/dataset`を作成し、ダウンロードしたデータを解凍
 
-### Training
-#### script
+## Training
+### script
 ```bash
 python main.py 
 ```
 
-### Visualization
+## Visualization
 <a href="" target="_blank" rel="noopener noreferrer">
     <img src="https://img.shields.io/badge/jupyter-Notebook-important?logo=jupyter" />
 </a>
@@ -35,15 +29,25 @@ python main.py
 #### Generator(class)
 GANのGeneratorモデルクラス
 
-### Discriminator(class)
+#### Discriminator(class)
 GANのDiscriminatorモデルクラス
 
-### argparser(function)
+#### argparser(function)
 引数処理
 
-### main(function)
+#### main(function)
 * Generator / Discriminatorの訓練タスク 
 * 500iterごとに、Generatorが生成する画像を保存
 * 訓練後に、
   * 各iterでのLoss値を、.h5ファイルで保存
   * 各iterでの生成画像 / Generator / Discriminatorを.pthファイル保存
+
+## Demo
+生成したGeneratorモデルを使った、StreamlitベースのWeb App
+
+> Generator.pthは、5epochのみ Datasetを学習させたGeneratorのパラメータファイル
+
+### Run Demo Web App | Streamlit
+```bash
+streamlit run webapp.py
+```
