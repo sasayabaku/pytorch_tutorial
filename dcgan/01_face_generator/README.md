@@ -20,7 +20,7 @@ python main.py
 ```
 
 ## Visualization
-<a href="" target="_blank" rel="noopener noreferrer">
+<a href="https://nbviewer.jupyter.org/github/sasayabaku/pytorch-training/blob/master/dcgan/01_face_generator/View_gan_outputs.ipynb" target="_blank" rel="noopener noreferrer">
     <img src="https://img.shields.io/badge/jupyter-Notebook-important?logo=jupyter" />
 </a>
 
@@ -46,6 +46,13 @@ GANのDiscriminatorモデルクラス
 生成したGeneratorモデルを使った、StreamlitベースのWeb App
 
 > Generator.pthは、5epochのみ Datasetを学習させたGeneratorのパラメータファイル
+
+追加学習させた場合は、`Generator.pth`を差し替える or `webapp.py`の
+
+```python
+netG.load_state_dict(torch.load('./Generator.pth', map_location=device), strict=False)
+```
+のPATHを差し替えてください。
 
 ### Run Demo Web App | Streamlit
 ```bash
