@@ -24,6 +24,9 @@ def args_initialize():
 
 def main():
 
+    # Create Result Directory
+    os.makedirs('./results/predict', exist_ok=True)
+
     # Get Arguments
     args = args_initialize()
     args.isTrain = False
@@ -49,7 +52,8 @@ def main():
 
     # Convert Output Tensor to Image file
     im = utils.tensor2im(outputs)
-    save_path = os.path.join('./test_main.png')
+    file_name = os.path.basename(im_file)
+    save_path = os.path.join('./results/predict', 'horse2zebra_' + str(file_name) + '.png')
     utils.save_image(im, save_path)
 
 
