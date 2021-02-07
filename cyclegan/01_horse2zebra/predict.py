@@ -29,7 +29,6 @@ def main():
 
     # Get Arguments
     args = args_initialize()
-    args.isTrain = False
 
     # Define Model
     net_G = ResNetGenerator(
