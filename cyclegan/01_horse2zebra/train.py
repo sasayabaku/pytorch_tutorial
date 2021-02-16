@@ -26,8 +26,10 @@ def args_initialize():
     parser.add_argument('--cuda', action='store_true')
 
     # lr, beta1
-
+    parser.add_argument('--learning_rate', type=float, default=2e-4, help="Learning Rate")
+    parser.add_argument('--beta1', type=float, default=0.5, help="Adams hyper parameter beta1")
     # save_epoch_freq, log_dir
+    parser.add_argument('--save_freq', type=int, default=5, help="Epoch frequency of save timing")
 
     args = parser.parse_args()
 
@@ -38,9 +40,7 @@ def main():
 
     args = args_initialize()
 
-    args.lr = 0.0002
-    args.beta1 = 0.5
-    save_freq = 5
+    save_freq = args.save_freq
     epochs = args.num_epoch
     cuda = args.cuda
 
@@ -185,7 +185,6 @@ def main():
                 loss_cycle_A.data.detach().cpu().numpy(), loss_cycle_B.data.detach().cpu().numpy(),
                 loss_idt_A.data.detach().cpu().numpy(), loss_idt_B.data.detach().cpu().numpy()
             ])
-            ic(ret_loss)
             running_loss += ret_loss
 
             """
