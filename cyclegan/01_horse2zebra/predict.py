@@ -47,7 +47,7 @@ def main():
     tensor_img = utils.create_data(im_file)
 
     # Predict
-    outputs = net_G.forward(tensor_img)
+    outputs = net_G.forward(tensor_img)[0]
 
     # Convert Output Tensor to Image file
     im = utils.tensor2im(outputs)
