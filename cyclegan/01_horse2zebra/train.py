@@ -26,7 +26,7 @@ def args_initialize():
     parser.add_argument('--cuda', action='store_true')
 
     # lr, beta1
-    parser.add_argument('--learning_rate', type=float, default=2e-4, help="Learning Rate")
+    parser.add_argument('--lr', type=float, default=2e-4, help="Learning Rate")
     parser.add_argument('--beta1', type=float, default=0.5, help="Adams hyper parameter beta1")
     # save_epoch_freq, log_dir
     parser.add_argument('--save_freq', type=int, default=5, help="Epoch frequency of save timing")
