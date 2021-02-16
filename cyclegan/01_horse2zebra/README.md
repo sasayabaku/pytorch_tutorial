@@ -11,6 +11,13 @@ Download Datasets
 ./datasets/download_dataset.sh
 ```
 
+## Training Model
+If use CUDA , `--cuda` options are enabled.
+
+```bash
+python3 train.py --cuda
+```
+
 ## Prediction
 ### script
 1枚の画像変換用スクリプト  
