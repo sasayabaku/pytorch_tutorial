@@ -13,8 +13,6 @@ from datasets import UnalignedDataset
 from losses import GANLoss
 from utils import ImagePool, save_network
 
-from icecream import ic
-
 
 def args_initialize():
     parser = argparse.ArgumentParser()
@@ -78,10 +76,6 @@ def main():
     optimizer_D_A = torch.optim.Adam(net_D_A.parameters(), lr=args.lr, betas=(args.beta1, 0.999))
     optimizer_D_B = torch.optim.Adam(net_D_B.parameters(), lr=args.lr, betas=(args.beta1, 0.999))
 
-    optimizers = [
-        optimizer_G, optimizer_D_A, optimizer_D_B
-    ]
-
     log_dir = './logs'
     checkpoints_dir = './checkpoints'
     os.makedirs(log_dir, exist_ok=True)
@@ -100,8 +94,6 @@ def main():
             if cuda:
                 input_A = input_A.cuda()
                 input_B = input_B.cuda()
-
-            image_paths = data['path_A']
 
             real_A = Variable(input_A)
             real_B = Variable(input_B)
@@ -210,5 +202,5 @@ def main():
         writer.add_scalar('loss_idt_B', losses[7], epoch)
 
 
-if __name__  == '__main__':
+if __name__ == '__main__':
     main()
