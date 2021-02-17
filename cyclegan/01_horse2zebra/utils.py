@@ -1,7 +1,16 @@
+import copy
+import os
+import random
+
 import numpy as np
+import torch
 from PIL import Image
 
 import torchvision.transforms as transforms
+
+__all__ = ['create_data', 'tensor2im', 'save_image', 'save_network', 'ImagePool']
+
+from torch.autograd import Variable
 
 
 def create_data(infile):
@@ -41,9 +50,9 @@ def tensor2im(input_image, imtype=np.uint8):
     :return: numpy image
     """
     image_tensor = input_image.data
-    image_numpy = image_tensor[0].cpu().float().numpy()
+    image_numpy = image_tensor.cpu().float().numpy()
 
-    if image_numpy.shape[0] == 1:
+    if image_numpy.shape == 1:
         image_numpy = np.tile(image_numpy, (3, 1, 1))
     image_numpy = (np.transpose(image_numpy, (1, 2, 0)) + 1) / 2.0 * 255.0
 
@@ -61,3 +70,45 @@ def save_image(image_numpy, image_path):
     h, w, _ = image_numpy.shape
 
     image_pil.save(image_path)
+
+
+def save_network(network, network_label, epoch_label, log_dir='./checkpoints'):
+    save_filename = "%s_net_%s.pth" % (epoch_label, network_label)
+    save_path = os.path.join(log_dir, save_filename)
+    torch.save(copy.deepcopy(network).cpu().state_dict(), save_path)
+
+
+class ImagePool(object):
+    def __init__(self, pool_size):
+        self.pool_size = pool_size
+        if self.pool_size > 0:
+            self.num_imgs = 0
+            self.images = []
+
+    def query(self, images):
+        if self.pool_size == 0:
+            return Variable(images)
+
+        return_images = []
+        for image in images:
+            image = torch.unsqueeze(image, 0)
+            if self.num_imgs < self.pool_size:
+                self.num_imgs += 1
+                self.images.append(image)
+                return_images.append(image)
+
+            else:
+                p = random.uniform(0, 1)
+                if p > 0.5:
+                    random_id = random.randint(0, self.pool_size - 1)
+                    tmp = self.images[random_id].clone()
+                    self.images[random_id] = image
+                    return_images.append(tmp)
+
+                else:
+                    return_images.append(image)
+
+        return_images = Variable(torch.cat(return_images, 0))
+        return return_images
+
+
